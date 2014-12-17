@@ -56,7 +56,8 @@ module.exports = {
     User.findById(req.params.userId, function(err, user){
       if(err){
         if(err.name == 'CastError' && err.type == 'ObjectId'){
-          res.send(404);
+          // TODO: handle ObjectId CastError globally
+          res.status(404).end();
         }
         else{
           return next(err);  
@@ -64,7 +65,7 @@ module.exports = {
         
       }
       if(user == null){
-        res.send(404);
+        res.status(404).end();
       }
       else{
         res.json(user);
