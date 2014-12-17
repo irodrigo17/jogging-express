@@ -6,41 +6,14 @@ It's built on top of a [Node.js](http://nodejs.org/) stack, using [Express.js](h
 
 Storage is handled by [MongoDB](http://www.mongodb.org/) through [Mongoose](http://mongoosejs.com/).
 
-## Deployment
+## TODOs
 
-- TODO: missing deplyment documentation
-
-## API Endpoints
-
-Description of all the API endpoints.
-
-- TODO: maybe there's something to create the HTML docs straight from the comments in the source
-
-### User endpoints
-
-##### Sign up
-
-POST /api/users/signup
-
-- TODO: missing endpoint description
-- TODO: missing request description
-- TODO: missing response description
-- TODO: missing examples
-
-##### Sign in
-
-POST /api/users/signin
-
-- TODO: missing endpoint description
-- TODO: missing request description
-- TODO: missing response description
-- TODO: missing examples
-
-##### Sign out
-
-POST /api/users/signout
-
-- TODO: missing endpoint description
-- TODO: missing request description
-- TODO: missing response description
-- TODO: missing examples
+- Finish endpoints
+- Authentication & Authorization
+- Error handling
+- Documentation
+- Tidy up (check TODOs in the code)
+- Add tests
+- Automate stuff (Grunt)
+- Linter
+- Deployment
