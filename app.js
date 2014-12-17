@@ -25,6 +25,8 @@ app.use(bodyParser.json());
 var indexRoutes = require('./routes/index');
 app.use('/', indexRoutes);
 
+// TODO: DRY /api prefix
+
 var userRoutes = require('./routes/users');
 app.use('/api/users', userRoutes);
 

@@ -1,11 +1,36 @@
-// User model
 var mongoose = require('mongoose');
 
-var UserSchema = new mongoose.Schema({
-  name: String,
-  username: String,
-  email: String,
-  password: String
+// custom setters
+function hash (val){
+  return "HASHED!";
+}
+
+// define basic user schema
+var schema = new mongoose.Schema({
+  name: {
+    type: String,
+    trim: true
+  },
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    lowercase: true,
+    trim: true
+  },
+  password: {
+    type: String,
+    required: true,
+    select: false,
+    set: hash
+  }
 });
 
-module.exports = mongoose.model('User', UserSchema);
+// export user model
+module.exports = mongoose.model('User', schema);

@@ -12,4 +12,7 @@ router.post('/signin', usersController.signIn);
 // Sign out
 router.post('/signout', usersController.signOut);
 
+// Show an user
+router.get('/:userId', usersController.show);
+
 module.exports = router;
