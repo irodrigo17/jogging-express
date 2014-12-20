@@ -7,7 +7,13 @@ var usersController = require('../controllers/users');
 router.post('/signup', usersController.signUp);
 
 // Sign in
-router.post('/signin', usersController.signIn);
+var passport = require('passport');
+router.post('/signin', passport.authenticate('local'), function(req, res, next){
+	console.log(user.username + ' signed in');
+  res.json({ 
+    user: req.user
+  });
+});
 
 // Sign out
 router.post('/signout', usersController.signOut);

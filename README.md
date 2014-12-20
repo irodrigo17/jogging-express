@@ -8,7 +8,6 @@ Storage is handled by [MongoDB](http://www.mongodb.org/) through [Mongoose](http
 
 ## TODOs
 
-- Finish endpoints
 - Authentication & Authorization
 - Error handling
 - Documentation

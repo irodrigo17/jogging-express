@@ -29,18 +29,12 @@ module.exports = {
         if(err){
           return next(err);
         }
+        // TODO: remove password completely from the JSON (avoid returning null)
+        fetchedUser.password = null;
         res.json(fetchedUser);
       });
     });
 
-  },
-
-  // sign in
-  signIn: function(req, res, next){
-    // TODO: create a token for the given user
-    res.json({
-      message: "Sign in is not implemented yet"
-    })
   },
 
   // sign out

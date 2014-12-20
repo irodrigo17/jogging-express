@@ -33,6 +33,44 @@ app.use('/api/users', userRoutes);
 var jogRoutes = require('./routes/jogs');
 app.use('/api/jogs', jogRoutes);
 
+
+// setup passport
+// TODO: move this stuff to it's own file
+var passport = require('passport');
+var LocalStrategy = require('passport-local');
+var User = require('./models/user');
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    console.log(username + ' is attemping to sign in');
+    User.findOne({username: username}, function (err, user) {
+      if (err) { 
+        console.log('error finding ' + username + ' in the db');
+        return done(err); 
+      }
+      if (!user) {
+        console.log(username + ' is not in the db');
+        return done(null, false, { 
+          message: 'Incorrect username.' 
+        });
+      }
+      console.log('user: ' + user);
+      console.log('stored password: ' + user.password);
+      if (!user.validPassword(password)) {
+        console.log(username + ' passwords don\'t match');
+        return done(null, false, { 
+          message: 'Incorrect password.' 
+        });
+      }
+      console.log(username + ' should sign in');
+      user.password = null;
+      return done(null, user);
+    });
+  }
+));
+
+app.use(passport.initialize());
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
