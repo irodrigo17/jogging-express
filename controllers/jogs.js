@@ -6,25 +6,21 @@ module.exports = {
   create: function(req, res, next){
 
     var jog = new Jog(req.body);
+    jog.userId = req.user._id;
 
     jog.save(function(err, jog){
       if(err){
         return next(err);
       }
 
-      Jog.findById(jog._id, function(err, jog){
-        if(err){
-          return next(err);
-        }
-        res.json(jog);
-      });
+      res.json(jog);
     });
-
   },
 
   // list all jogs
   list: function(req, res, next){
-    Jog.find(function(err, jogs){
+    // TODO: add pagination
+    Jog.find({userId: req.user._id}, function(err, jogs){
       if(err){
         return next(err);
       }
@@ -34,18 +30,20 @@ module.exports = {
     
   },
 
-  // show a jog
+  // get a particular jog
   show: function(req, res, next){
     Jog.findById(req.params.jogId, function(err, jog){
       if(err){
         return next(err);
       }
-      
-      if(jog == null){
+      else if(jog == null){
         res.status(404).end();
       }
+      else if(jog.userId != req.user._id){
+        res.status(403).end();
+      }
       else{
-        res.json(jog);  
+        res.json(jog);
       }
     });
   },
@@ -58,9 +56,11 @@ module.exports = {
       if(err){
         return next(err);
       }
-
-      if(jog == null){
+      else if(jog == null){
         res.status(404).end();
+      }
+      else if(jog.userId != req.user._id){
+        res.status(403).end();
       }
       else{
         jog.remove(function(err){

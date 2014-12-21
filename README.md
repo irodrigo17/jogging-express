@@ -11,8 +11,13 @@ Storage is handled by [MongoDB](http://www.mongodb.org/) through [Mongoose](http
 - Authentication & Authorization
 - Error handling
 - Documentation
+- Social auth (Facebook/Twitter)
 - Tidy up (check TODOs in the code)
 - Add tests
 - Automate stuff (Grunt)
 - Linter
+- SSL
 - Deployment
+- Analysis
+- CI
+- Code Quality

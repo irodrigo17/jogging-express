@@ -1,9 +1,9 @@
 var mongoose = require('mongoose');
+var bcrypt = require('bcrypt');
 
 // custom setters
 function hash (val){
-  // TODO: hash and salt me please
-  return val != null ? "HASHED!" : null;
+  return bcrypt.hashSync(val, 10);
 }
 
 // define basic user schema
@@ -24,6 +24,8 @@ var schema = new mongoose.Schema({
     unique: true,
     lowercase: true,
     trim: true
+    // TODO: add email validation
+    // TODO: add email verification
   },
   password: {
     type: String,
@@ -35,9 +37,7 @@ var schema = new mongoose.Schema({
 
 // custom methods
 schema.methods.validPassword = function(password){
-  // TODO: check hashed password properly
-  console.log('validating password ' + password + ' against ' + this.password);
-  return (this.password === password);
+  return bcrypt.compareSync(password, this.password);
 };
 
 // export user model
