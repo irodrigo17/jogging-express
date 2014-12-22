@@ -8,16 +8,18 @@ Storage is handled by [MongoDB](http://www.mongodb.org/) through [Mongoose](http
 
 ## TODOs
 
-- Authentication & Authorization
 - Error handling
 - Documentation
-- Social auth (Facebook/Twitter)
 - Tidy up (check TODOs in the code)
+- SSL
 - Add tests
+- Email verification
+- Password reset
+- Invalidate token
 - Automate stuff (Grunt)
 - Linter
-- SSL
 - Deployment
 - Analysis
 - CI
 - Code Quality
+- Social auth (Facebook/Twitter)
