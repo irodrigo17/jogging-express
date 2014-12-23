@@ -16,6 +16,7 @@ Storage is handled by [MongoDB](http://www.mongodb.org/) through [Mongoose](http
 - POST /api/users/sigout
 - Filter jogs by dates
 - Weekly stats endpoint
+- Pagination
 - Email verification
 - Password reset
 - Invalidate token
