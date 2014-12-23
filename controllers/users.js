@@ -19,9 +19,11 @@ module.exports = {
               var error = new Error();
               error.status = 400;
               error.message = path + ' ' + user.get(path) + ' already taken';
-              return next(error);
             }
           }
+        }
+        else if(err.name == 'ValidationError'){
+          err.status = 400;
         }
         return next(err);
       }
