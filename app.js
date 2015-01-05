@@ -40,6 +40,9 @@ app.use('/api/users', userRoutes);
 var jogRoutes = require('./routes/jogs');
 app.use('/api/jogs', jogRoutes);
 
+var statsRoutes = require('./routes/stats');
+app.use('/api/stats', statsRoutes);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

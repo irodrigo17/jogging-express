@@ -21,12 +21,13 @@ module.exports = {
   list: function(req, res, next){
 
     // check parameters
-    if(!req.user._id){
+    var userId = req.user._id;
+    if(!userId){
       return res.status(401).end();
     }
 
     // create basic query
-    var query = Jog.find().where('userId').equals(req.user._id);
+    var query = Jog.find().where('userId').equals(userId);
 
     // add date filtering
     var start = req.query.startDate;
