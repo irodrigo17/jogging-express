@@ -11,7 +11,6 @@ Storage is handled by [MongoDB](http://www.mongodb.org/) through [Mongoose](http
 #### Features
 
 - Weekly stats endpoint
-- Pagination
 - PATCH /api/jogs/:jogId
 - PATCH /api/users/:userId
 - DELETE /api/users/:userId

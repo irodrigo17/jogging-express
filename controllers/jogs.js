@@ -19,27 +19,40 @@ module.exports = {
 
   // list all jogs
   list: function(req, res, next){
-    // TODO: add pagination
 
-		// create date filtering criteria
-		var dateCriteria = {};
-		var start = req.query.startDate;
-		var end = req.query.endDate;
-		if(start){
-			dateCriteria.$gte = start;
-		}
-		if(end){
-			dateCriteria.$lte = end;
-		}
+    // check parameters
+    if(!req.user._id){
+      return res.status(401).end();
+    }
 
-		// create query criteria
-		var query = {userId: req.user._id};
-		if(dateCriteria.$gte || dateCriteria.$lte){
-			query.date = dateCriteria;
-		}
+    // create basic query
+    var query = Jog.find().where('userId').equals(req.user._id);
+
+    // add date filtering
+    var start = req.query.startDate;
+    if(start){
+      query.where('date').gte(start);
+    }
+
+    var end = req.query.endDate;
+    if(end){
+      query.where('date').lte(end);
+    }
+
+    // add pagination
+    var limit = req.query.limit || 10;
+    console.log('limit: ' + limit);
+    query.limit(limit);
+
+    var skip = req.query.skip || 0;
+    console.log('skip: ' + skip);
+    query.skip(skip);
+
+    // add sorting
+    query.sort('-date');
 
 		// execute query
-    Jog.find(query).sort('-date').exec(function(err, jogs){
+    query.exec(function(err, jogs){
       if(err){
         return next(err);
       }
