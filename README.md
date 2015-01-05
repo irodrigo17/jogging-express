@@ -10,13 +10,12 @@ Storage is handled by [MongoDB](http://www.mongodb.org/) through [Mongoose](http
 
 #### Features
 
-- PATCH /api/users/:userId
-- DELETE /api/users/:userId
-- PATCH /api/jogs/:jogId
-- POST /api/users/sigout
-- Filter jogs by dates
 - Weekly stats endpoint
 - Pagination
+- PATCH /api/jogs/:jogId
+- PATCH /api/users/:userId
+- DELETE /api/users/:userId
+- POST /api/users/sigout
 - Email verification
 - Password reset
 - Invalidate token
