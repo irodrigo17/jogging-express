@@ -10,7 +10,6 @@ Storage is handled by [MongoDB](http://www.mongodb.org/) through [Mongoose](http
 
 #### Features
 
-- Weekly stats endpoint
 - Invalidate token
 - Update jog
 - Update user
