@@ -1,7 +1,7 @@
 var Jog = require('../models/jog');
 
 module.exports = {
-	
+
   // create a jog
   create: function(req, res, next){
 
@@ -20,14 +20,32 @@ module.exports = {
   // list all jogs
   list: function(req, res, next){
     // TODO: add pagination
-    Jog.find({userId: req.user._id}, function(err, jogs){
+
+		// create date filtering criteria
+		var dateCriteria = {};
+		var start = req.query.startDate;
+		var end = req.query.endDate;
+		if(start){
+			dateCriteria.$gte = start;
+		}
+		if(end){
+			dateCriteria.$lte = end;
+		}
+
+		// create query criteria
+		var query = {userId: req.user._id};
+		if(dateCriteria.$gte || dateCriteria.$lte){
+			query.date = dateCriteria;
+		}
+
+		// execute query
+    Jog.find(query).sort('-date').exec(function(err, jogs){
       if(err){
         return next(err);
       }
-
       res.json(jogs);
     });
-    
+
   },
 
   // get a particular jog
