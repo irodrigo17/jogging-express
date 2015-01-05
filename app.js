@@ -53,9 +53,11 @@ if (app.get('env') === 'development') {
   // development error handler
   // will print stacktrace
   app.use(function(err, req, res, next) {
+    console.error(err)
     res.status(err.status || 500);
     res.json({
-      error: err
+      error: err.message,
+      stacktrace: err.stack
     });
   });
 }
@@ -63,6 +65,7 @@ else{
   // production error handler
   // no stacktraces leaked to user
   app.use(function(err, req, res, next) {
+    console.error(err)
     res.status(err.status || 500);
     res.json({
       error: err.message
