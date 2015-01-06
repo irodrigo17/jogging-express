@@ -2,7 +2,6 @@ var Jog = require('../models/jog');
 
 module.exports = {
 
-  // create a jog
   create: function(req, res, next){
 
     var jog = new Jog(req.body);
@@ -17,7 +16,6 @@ module.exports = {
     });
   },
 
-  // list all jogs
   list: function(req, res, next){
 
     // check parameters
@@ -62,7 +60,6 @@ module.exports = {
 
   },
 
-  // get a particular jog
   show: function(req, res, next){
     Jog.findById(req.params.jogId, function(err, jog){
       if(err){
@@ -80,10 +77,9 @@ module.exports = {
     });
   },
 
-  // removes a jog
   update: function(req, res, next){
 
-    // TODO: update in one step
+    // TODO: update in one step?
     Jog.findById(req.params.jogId, function(err, jog){
       if(err){
         return next(err);
@@ -114,7 +110,6 @@ module.exports = {
     });
   },
 
-  // removes a jog
   remove: function(req, res, next){
 
     // TODO: remove in one step?

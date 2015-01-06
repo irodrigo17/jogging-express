@@ -1,18 +1,11 @@
 var express = require('express');
-var router = express.Router();
-
 var usersController = require('../controllers/users');
 
-// Sign up
+var router = express.Router();
 router.post('/signup', usersController.signUp);
-
-// Sign in
 router.post('/signin', usersController.signIn);
-
-// Sign out
 router.post('/signout', usersController.signOut);
-
-// Show an user
-router.get('/:username', usersController.show);
+router.get('/:userId', usersController.show);
+router.patch('/:userId', usersController.update);
 
 module.exports = router;

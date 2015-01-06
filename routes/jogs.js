@@ -1,21 +1,11 @@
 var express = require('express');
-var router = express.Router();
-
 var jogsController = require('../controllers/jogs');
 
-// Create
+var router = express.Router();
 router.post('/', jogsController.create);
-
-// List
 router.get('/', jogsController.list);
-
-// Show
 router.get('/:jogId', jogsController.show);
-
-// Patch
 router.patch('/:jogId', jogsController.update);
-
-// Delete
 router.delete('/:jogId', jogsController.remove);
 
 module.exports = router;

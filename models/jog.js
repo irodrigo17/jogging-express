@@ -26,5 +26,5 @@ var schema = new mongoose.Schema({
   }
 });
 
-// export user model
+// export jog model
 module.exports = mongoose.model('Jog', schema);

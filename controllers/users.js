@@ -2,8 +2,7 @@ var User = require('../models/user');
 var jwt = require('jsonwebtoken');
 
 module.exports = {
-	
-  // sign up
+
   signUp: function(req, res, next){
 
     var user = new User(req.body);
@@ -11,7 +10,7 @@ module.exports = {
     user.save(function(err, savedUser){
       if(err){
         // check for unique index errors
-        if(err.code === 11000 || err.code === 11001) { 
+        if(err.code === 11000 || err.code === 11001) {
           var uniquePaths = ['username', 'email'];
           for(var i = 0; i < uniquePaths.length; i++){
             var path = uniquePaths[i];
@@ -40,9 +39,8 @@ module.exports = {
 
   },
 
-  // sign in
   signIn: function(req, res, next){
-    
+
     User.findOne({username: req.body.username}, function(err, user){
       if(err){
         return next(err);
@@ -52,7 +50,7 @@ module.exports = {
         // TODO: add error message?
       }
       else{
-        var token = jwt.sign({ 
+        var token = jwt.sign({
           username: user.username,
           _id: user._id
         }, 'S3cr3t!');
@@ -61,33 +59,31 @@ module.exports = {
         // TODO: expire tokens
         // TODO: remove user password
         // TODO: store token for later verification
-        res.json({ 
+        res.json({
           user: user,
           token: token
-        });  
+        });
       }
     });
   },
 
-  // sign out
   signOut: function(req, res, next){
-    // TODO: check authorization 
+    // TODO: check authorization
     // TODO: destroy the token for the given user
     res.json({
       message: "Sign out is not implemented yet"
     })
   },
 
-  // shows an user
   show: function(req, res, next){
-    if(!req.user.username){
+    if(!req.user._id){
       res.status(401).end();
     }
-    else if(req.user.username != req.params.username){
+    else if(req.user._id != req.params.userId){
       res.status(403).end();
     }
     else{
-      User.findOne({username: req.params.username}, function(err, user){
+      User.findById(req.params.userId, function(err, user){
         if(err){
           return next(err);
         }
@@ -100,4 +96,31 @@ module.exports = {
       });
     }
   },
+
+	update: function(req, res, next){
+
+		// TODO: update in one step?
+		User.findById(req.params.userId, function(err, user){
+			if(err){
+				return next(err);
+			}
+			else if(user == null){
+				res.status(404).end();
+			}
+			else if(req.params.userId != req.user._id){
+				res.status(403).end();
+			}
+			else{
+				if(req.body.name){
+					user.name = req.body.name;
+				}
+				user.save(function(err, user){
+					if(err){
+						return next(err);
+					}
+					res.json(user);
+				});
+			}
+		});
+	},
 };
