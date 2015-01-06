@@ -81,6 +81,40 @@ module.exports = {
   },
 
   // removes a jog
+  update: function(req, res, next){
+
+    // TODO: update in one step
+    Jog.findById(req.params.jogId, function(err, jog){
+      if(err){
+        return next(err);
+      }
+      else if(jog == null){
+        res.status(404).end();
+      }
+      else if(jog.userId != req.user._id){
+        res.status(403).end();
+      }
+      else{
+        if(req.body.time){
+          jog.time = req.body.time;
+        }
+        if(req.body.distance){
+          jog.distance = req.body.distance;
+        }
+        if(req.body.date){
+          jog.date = req.body.date;
+        }
+        jog.save(function(err, jog){
+          if(err){
+            return next(err);
+          }
+          res.json(jog);
+        });
+      }
+    });
+  },
+
+  // removes a jog
   remove: function(req, res, next){
 
     // TODO: remove in one step?

@@ -12,6 +12,9 @@ router.get('/', jogsController.list);
 // Show
 router.get('/:jogId', jogsController.show);
 
+// Patch
+router.patch('/:jogId', jogsController.update);
+
 // Delete
 router.delete('/:jogId', jogsController.remove);
 
