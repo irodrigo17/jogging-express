@@ -67,14 +67,6 @@ module.exports = {
     });
   },
 
-  signOut: function(req, res, next){
-    // TODO: check authorization
-    // TODO: destroy the token for the given user
-    res.json({
-      message: "Sign out is not implemented yet"
-    })
-  },
-
   show: function(req, res, next){
     if(!req.user._id){
       res.status(401).end();
@@ -123,4 +115,29 @@ module.exports = {
 			}
 		});
 	},
+
+  remove: function(req, res, next){
+
+    // TODO: remove in one step?
+    User.findById(req.params.userId, function(err, user){
+      if(err){
+        return next(err);
+      }
+      else if(user == null){
+        res.status(404).end();
+      }
+      else if(req.params.userId != req.user._id){
+        res.status(403).end();
+      }
+      else{
+        // TODO: invalidate token
+        user.remove(function(err){
+          if(err){
+            return next(err);
+          }
+          res.status(204).end();
+        });
+      }
+    });
+  },
 };

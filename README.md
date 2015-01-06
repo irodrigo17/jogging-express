@@ -11,8 +11,6 @@ Storage is handled by [MongoDB](http://www.mongodb.org/) through [Mongoose](http
 #### Features
 
 - Invalidate token
-- Update user
-- Delete user
 - Email verification
 - Password reset
 - Social auth (Facebook/Twitter)
